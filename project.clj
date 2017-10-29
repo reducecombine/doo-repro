@@ -15,6 +15,7 @@
                  [org.omcljs/om "1.0.0-alpha46"]]
 
   :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
+            [lein-doo "0.1.8"]]
 
   :source-paths ["src"]
 
@@ -22,9 +23,11 @@
               [{:id "dev"
                 :source-paths ["src"]
 
+                :compiler {:main doo-repro.doo-runner
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/doo_repro.js"
                            :output-dir "resources/public/js/compiled/out"
+                           :source-map-timestamp true}}
                ;; This next build is a compressed minified build for
                ;; production. You can build this with:
                ;; lein cljsbuild once min
@@ -34,6 +37,8 @@
                            :main doo-repro.core
                            :optimizations :advanced
                            :pretty-print false}}]}
+  
+  :doo {:paths {:karma "karma --browserNoActivityTimeout 600000"}}
 
   ;; Setting up nREPL for Figwheel and ClojureScript dev
   ;; Please see:
